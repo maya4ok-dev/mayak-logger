@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iostream>
+#include <string_view>
 #include <mutex>
 
 // A simple logging system from MayakUI.
@@ -40,14 +41,14 @@ namespace mayak::logger {
      * When set to true, the logger will output the message, followed by the file and line number.
      * @param value whether to include file and line information.
      */
-    void setAdditionalInfo(const bool& value) {
+    void setAdditionalInfo(bool value) {
         additionalInfo = value;
     }
 
     // RAII color guard, that resets the console color after the scope ends.
     class Color {
     public:
-        Color(const char* color) { std::cout << "\033[" << color << "m"; }
+        Color(std::string_view color) { std::cout << "\033[" << color << "m"; }
         ~Color() { std::cout << "\033[0m"; }
     };
 
@@ -61,7 +62,7 @@ namespace mayak::logger {
      * @param file The file from which the log was called.
      * @param line The line from which the log was called.
      */
-    inline void _log(LogLevel level, const char* levelStr, const char* color, const std::string& msg, const char* file, int line) {
+    inline void _log(LogLevel level, std::string_view levelStr, std::string_view color, std::string_view msg, const char* file, int line) {
         if (level < logLevel) return;
         std::lock_guard<std::mutex> lock(logMutex);
         Color c(color);
@@ -78,7 +79,7 @@ namespace mayak::logger {
      * 
      * @param msg Trace message to log.
      */
-    inline void _trace(const std::string& msg, const char* file, int line) {
+    inline void _trace(std::string_view msg, const char* file, int line) {
         _log(TRACE, "TRACE", "90", msg, file, line);
     }
 
@@ -89,7 +90,7 @@ namespace mayak::logger {
      * 
      * @param msg Debug message to log.
      */
-    inline void _debug(const std::string& msg, const char* file, int line) {
+    inline void _debug(std::string_view msg, const char* file, int line) {
         _log(DEBUG, "DEBUG", "36", msg, file, line);
     }
 
@@ -100,7 +101,7 @@ namespace mayak::logger {
      * 
      * @param msg Information message to log.
      */
-    inline void _info(const std::string& msg, const char* file, int line) {
+    inline void _info(std::string_view msg, const char* file, int line) {
         _log(INFO, "INFO", "37", msg, file, line);
     }
 
@@ -111,7 +112,7 @@ namespace mayak::logger {
      * 
      * @param msg Fatal error message to log.
      */
-    inline void _warn(const std::string& msg, const char* file, int line) {
+    inline void _warn(std::string_view msg, const char* file, int line) {
         _log(WARN, "WARN", "33", msg, file, line);
     }
 
@@ -122,7 +123,7 @@ namespace mayak::logger {
      * 
      * @param msg Error message to log.
      */
-    inline void _error(const std::string& msg, const char* file, int line) {
+    inline void _error(std::string_view msg, const char* file, int line) {
         _log(ERROR, "ERROR", "31", msg, file, line);
     }
 
@@ -134,7 +135,7 @@ namespace mayak::logger {
      * 
      * @param msg Fatal error message to log.
      */
-    inline void _fatal(const std::string& msg, const char* file, int line) {
+    inline void _fatal(std::string_view msg, const char* file, int line) {
         _log(FATAL, "FATAL", "41;97", msg, file, line);
     }
 }
@@ -190,3 +191,10 @@ namespace mayak::logger {
  * @param msg Fatal error message to log.
  */
 #define MAYAK_LOG_FATAL(msg) mayak::logger::_fatal(msg, __FILE__, __LINE__)
+
+// TODO: Add color disable if no color support
+// TODO: Add logging to file
+// TODO: Add operator <<
+// TODO: Add better formatting
+// TODO: Add timestamp
+// TODO: Use std::clog / std::cerr instead of std::cout
