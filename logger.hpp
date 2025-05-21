@@ -7,6 +7,7 @@
 
 #ifdef _WIN32
 
+#define WIN32_LEAN_AND_MEAN
 #include <windows.h>
 /**
  * @brief Enables virtual terminal processing in the console.
@@ -17,7 +18,7 @@
  * returns false. Otherwise, it returns true.
  * @note This function is only available on Windows.
  */
-bool enableVirtualTerminal() {
+inline bool enableVirtualTerminal() {
     HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
     if (hOut == INVALID_HANDLE_VALUE) return false;
 
@@ -40,6 +41,7 @@ bool enableVirtualTerminal() {
 #include <ctime>
 #include <sstream>
 #include <iomanip>
+#include <string>
 
 // A simple logging system from MayakUI.
 // Made with love by Maya4ok! ❤️
