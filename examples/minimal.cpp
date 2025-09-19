@@ -13,6 +13,9 @@ struct ConsoleSink : mayak::logger::core::Sink {
 
 int main() {
     mayak::logger::core::Level info("INFO", 40);
+    mayak::logger::core::Level debug("DEBUG", 10);
+    mayak::logger::core::minLevelPriority(30);
     mayak::logger::core::Sink::createSink<ConsoleSink>();
     mayak::log(info) << "Hello, World!";
+    mayak::log(debug) << "This won't appear";
 }

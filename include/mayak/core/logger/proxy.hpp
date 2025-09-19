@@ -2,7 +2,7 @@
 namespace mayak::logger::core {
 
 struct LoggerProxy {
-    LoggerStream& stream;
+    ILoggerStream& stream;
 
     template<typename T>
     LoggerProxy& operator<<(const T& val) {

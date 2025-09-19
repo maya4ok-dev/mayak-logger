@@ -16,7 +16,7 @@ inline logger::core::LoggerProxy log(logger::core::Level lvl) {
     thread_local logger::core::LoggerStream stream(lvl);
 
     if (lvl.priority < logger::core::minLevelPriority() || !logger::core::enabled())
-        return logger::core::LoggerProxy(noop);
+        return logger::core::LoggerProxy{noop};
     
     return logger::core::LoggerProxy(stream);
 }
