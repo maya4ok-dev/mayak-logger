@@ -1,0 +1,2 @@
+add_executable(mayak_logger_core_example_minimal minimal.cpp)
+target_link_libraries(mayak_logger_core_example_minimal PRIVATE mayak_logger_core)
