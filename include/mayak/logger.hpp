@@ -5,11 +5,12 @@
 
 #pragma once
 
-#include "logger/level.hpp"
-#include "logger/sinks.hpp"
-#include "logger/state.hpp"
+#include "logger/core/level.hpp"
+#include "logger/core/sinks.hpp"
+#include "logger/core/state.hpp"
+#include "logger/core/stream.hpp"
+#include "logger/core/proxy.hpp"
 #include "logger/stream.hpp"
-#include "logger/proxy.hpp"
 
 #ifndef MAYAK_LOGGER_CORE_ONLY
 namespace mayak {
@@ -24,8 +25,8 @@ namespace mayak {
 /// mayak::log(info) << "Hello, Mayak!";
 /// @endcode
 inline logger::core::LoggerProxy log(logger::core::Level lvl) {
-    static logger::core::NoOpStream noop;
-    thread_local logger::core::LoggerStream stream(lvl);
+    static logger::NoOpStream noop;
+    thread_local logger::LoggerStream stream(lvl);
 
     if (lvl.priority < logger::core::minLevelPriority() || !logger::core::enabled())
         return logger::core::LoggerProxy{noop};

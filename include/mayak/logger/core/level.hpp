@@ -1,4 +1,4 @@
-/// @file mayak/core/logger/level.hpp
+/// @file logger/core/level.hpp
 /// @brief Defines logging levels used to categorize log messages.
 /// @author Maya4ok
 /// @license MIT

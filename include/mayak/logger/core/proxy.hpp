@@ -1,4 +1,4 @@
-/// @file mayak/core/logger/proxy.hpp
+/// @file logger/core/proxy.hpp
 /// @brief Logger stream proxy
 /// @author Maya4ok (https://github.com/maya4ok-dev)
 /// @license MIT
@@ -9,7 +9,7 @@
 /// streaming values with `<<` operator while ensuring flush
 /// when the proxy goes out of scope (RAII).
 
-#include "mayak/core/logger/stream.hpp"
+#include "stream.hpp"
 namespace mayak::logger::core {
 
 struct LoggerProxy {

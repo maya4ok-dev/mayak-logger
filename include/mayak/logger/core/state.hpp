@@ -1,4 +1,4 @@
-/// @file mayak/core/logger/state.hpp
+/// @file logger/core/state.hpp
 /// @brief Global logger state management.
 /// @author Maya4ok (https://github.com/maya4ok-dev)
 /// @license MIT

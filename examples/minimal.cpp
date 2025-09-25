@@ -14,7 +14,7 @@
 /// [INFO] Hello, Project Mayak!
 /// @endcode
 
-#include <mayak/core/logger.hpp>
+#include <mayak/logger.hpp>
 #include <iostream>
 #include <string>
 

@@ -15,7 +15,7 @@
 /// [INFO] Hello, Project Mayak!
 /// @endcode
 
-#include <mayak/core/logger.hpp>
+#include <mayak/logger.hpp>
 #include <fstream>
 
 using namespace mayak::logger::core;

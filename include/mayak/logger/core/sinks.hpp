@@ -1,4 +1,4 @@
-/// @file mayak/core/logger/sinks.hpp
+/// @file logger/core/sinks.hpp
 /// @brief Logger sink base interface.
 /// @author Maya4ok (https://github.com/maya4ok-dev)
 /// @license MIT
