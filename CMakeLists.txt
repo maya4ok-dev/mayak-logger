@@ -10,3 +10,4 @@ add_library(mayak_logger_core INTERFACE)
 target_include_directories(mayak_logger_core INTERFACE include)
 
 add_subdirectory(examples)
+add_subdirectory(tests)
