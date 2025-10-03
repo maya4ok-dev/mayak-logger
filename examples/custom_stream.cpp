@@ -1,3 +1,4 @@
+/// @ingroup Logger
 /// @example custom_stream.cpp
 /// @brief Example of creating a custom logger stream
 /// @details

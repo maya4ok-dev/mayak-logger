@@ -1,3 +1,4 @@
+/// @ingroup Logger
 /// @example custom_sink.cpp
 /// @brief Example of creating a custom logger sink
 /// @details
@@ -47,7 +48,7 @@ int main() {
     Level info("INFO", 40);
     Sink::createSink<FileSink>("mylog.txt");
 
-    // Message will appear in `mylog.txt`, but not in stdout.
+    // Message will appear in `mylog.txt`, (not in stdout).
     mayak::log(info) << "Hello, Project Mayak!";
 
     return 0;

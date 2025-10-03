@@ -1,7 +1,6 @@
 /// @file logger/core/sinks.hpp
 /// @brief Logger sink base interface.
 /// @author Maya4ok (https://github.com/maya4ok-dev)
-/// @license MIT
 ///
 /// @details
 /// Defines the abstract sink interface used to handle log messages.
@@ -39,27 +38,46 @@
 
 namespace mayak::logger::core {
 
+/// @class Sink
+/// @brief A sink interface
 class Sink {
 private:
-    static inline std::vector<std::unique_ptr<Sink>> sinks{};
+    static inline std::vector<std::unique_ptr<Sink>> sinks{}; ///< A vector of sink pointers
 
 public:
+    /// @brief Destroys the sink.
+    /// @note This method is virtual and must be overridden by derived sinks.
     virtual ~Sink() = default;
 
+    /// @brief Log to all registered sinks
+    /// @param msg A message to log
     static void logAll(const std::string& msg) {
         for (auto& sink : sinks) {
             sink->log(msg);
-        }
+        }   
     }
+
+    /// @brief Flush all registered sinks
     static void flushAll() {
         for (auto& sink : sinks) {
             sink->flush();
         }
     }
 
+    /// @brief Write a message to the sink.
+    /// @param msg The message to write.
+    /// @note This method is virtual and must be overridden by derived sinks.
     virtual void log(const std::string& msg) = 0;
+
+    /// @brief Flushes the sink's internal buffers.
+    /// @note This method is virtual and must be overridden by derived sinks.
     virtual void flush() = 0;
 
+    /// @brief Register and create a sink
+    /// @tparam T A type that inherits from Sink
+    /// @tparam Args Argument types to forward to Sink's constructor
+    /// @param args Arguments to forward to Sink's constructor
+    /// @return A raw pointer to the created sink
     template<typename T, typename... Args>
     static T* createSink(Args&&... args) {
         auto ptr = std::make_unique<T>(std::forward<Args>(args)...);

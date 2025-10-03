@@ -1,7 +1,6 @@
 /// @file logger/core/state.hpp
 /// @brief Global logger state management.
 /// @author Maya4ok (https://github.com/maya4ok-dev)
-/// @license MIT
 ///
 /// @details
 /// Provides global logger configuration:
@@ -12,9 +11,11 @@
 /// Typical usage:
 /// @code
 /// mayak::logger::core::enabled(true);
-/// mayak::logger::core::minLevelPriority(2); // e.g. "info"
+/// int current_priority = mayak::logger::core::minLevelPriority();
 /// @endcode
-
+///
+/// @note
+/// This file is not part of the core modules; it is temporarily placed in the `core/` directory.
 #pragma once
 
 #include <atomic>
@@ -22,11 +23,12 @@
 
 namespace mayak::logger::core {
 
+/// @brief A global logger state
 inline struct LoggerState {
-    std::atomic<bool> enabled{true};
-    std::atomic<int> minLevelPriority{0};
-    std::mutex mtx;
-} state;
+    std::atomic<bool> enabled{true}; ///< Is logger enabled or not.
+    std::atomic<int> minLevelPriority{0}; ///< Minimum severity priority.
+    std::mutex mtx; ///< Mutex for thread safety (currently unused)
+} state; ///< A global logger state.
 
 /// @brief Check if logging is enabled.
 /// @return True if logging is enabled, false otherwise.

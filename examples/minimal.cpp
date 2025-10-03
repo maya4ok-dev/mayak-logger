@@ -1,3 +1,4 @@
+/// @ingroup Logger
 /// @example minimal.cpp
 /// @brief Minimal example of using mayak::logger core.
 /// @details

@@ -1,0 +1,29 @@
+/**
+ * @defgroup Logger Logger module
+ * @brief Ready-to-use logger module.
+ * 
+ * @details
+ * Provides everything needed for logging:
+ * - Logging levels: INFO, DEBUG, WARN, ERROR, etc.
+ * - Supports multiple sinks: console, file, or custom sinks.
+ * - Utilities for formatting log messages.
+ * 
+ * @note
+ * For more control or custom behaviour, see the Core module.
+ */
+
+/**
+ * @defgroup Core Logger core module
+ * @brief Logger core module.
+ * 
+ * @details
+ * Provides the foundational interfaces and mechanisms for logging.
+ * 
+ * This module is fully open and designed for extension. Advanced
+ * users can build their own logging solutions on top of it without
+ * using ready-to-use logger module.
+ * 
+ * @note
+ * Primarily intended for internal usage, but can be safely extended.
+ */
+
