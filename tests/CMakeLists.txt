@@ -9,11 +9,10 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(catch2)
 
 add_executable(tests
+    test_core_ilogger.cpp
+    test_core_isink.cpp
     test_core_level.cpp
-    test_core_proxy.cpp
-    test_core_sinks.cpp
     test_core_state.cpp
-    test_core_stream.cpp
 )
 
 target_link_libraries(tests PRIVATE Catch2::Catch2WithMain mayak_logger_core)

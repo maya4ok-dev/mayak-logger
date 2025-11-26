@@ -9,9 +9,9 @@
 
 #pragma once
 
-#include "mayak/logger/core/stream.hpp"
+#include "mayak/logger/core/ilogger.hpp"
 #include "mayak/logger/core/level.hpp"
-#include "mayak/logger/core/sinks.hpp"
+#include "mayak/logger/core/isink.hpp"
 
 namespace mayak::logger {
 
@@ -20,11 +20,11 @@ namespace mayak::logger {
 ///
 /// @details
 /// Collects messages with `<<` stream and sends them to all registered sinks.
-struct LoggerStream : core::ILoggerStream {
+struct Logger : core::ILogger {
     /// @brief A logger stream constructor.
     /// @param lvl A log level.
     /// @todo `core::Level` -> `const core::Level&`
-    LoggerStream(core::Level lvl) : _lvl(lvl.label) {} 
+    Logger(core::Level lvl) : _lvl(lvl.label) {} 
 
     /// @brief Sets the logger stream level.
     /// @param lvl A reference to the log level to set.
@@ -51,7 +51,6 @@ struct LoggerStream : core::ILoggerStream {
         oss.clear();
     }
 
-protected:
     /// @brief Appends the message from operator `<<` to internal buffer.
     /// @details
     /// Overrides `core::ILoggerStream::append`.
@@ -70,10 +69,10 @@ private:
 /// @details
 /// A no-operation (noop) zero-cost stream for disabled logs.
 /// Doesn't collects or logs messages.
-struct NoOpStream : core::ILoggerStream {
-protected:
+struct NoOpLogger : core::ILogger {
     /// @brief Appends messages (does nothing)
     void append(const std::string&) override {}
+    void flush() override {}
 };
 
 } // namespace mayak::logger

@@ -5,10 +5,10 @@
 #pragma once
 
 #include "logger/core/level.hpp"
-#include "logger/core/sinks.hpp"
+#include "logger/core/isink.hpp"
 #include "logger/core/state.hpp"
+#include "logger/core/ilogger.hpp"
 #include "logger/core/stream.hpp"
-#include "logger/core/proxy.hpp"
 #include "logger/stream.hpp"
 
 #ifndef MAYAK_LOGGER_CORE_ONLY
@@ -16,21 +16,21 @@ namespace mayak {
 
 /// @brief Entry point for logging messages.
 /// @param lvl Logging level (priority and label).
-/// @return LoggerProxy object for streaming values with `<<`.
+/// @return LoggerStream used to stream values with `<<`.
 ///
 /// @details
 /// Example:
 /// @code
 /// mayak::log(info) << "Hello, Mayak!";
 /// @endcode
-inline logger::core::LoggerProxy log(logger::core::Level lvl) {
-    static logger::NoOpStream noop;
-    thread_local logger::LoggerStream stream(lvl);
+inline logger::core::LoggerStream log(logger::core::Level lvl) {
+    static logger::NoOpLogger noop;
+    thread_local logger::Logger stream(lvl);
 
     if (lvl.priority < logger::core::minLevelPriority() || !logger::core::enabled())
-        return logger::core::LoggerProxy{noop};
+        return logger::core::LoggerStream{noop};
     
-    return logger::core::LoggerProxy(stream);
+    return logger::core::LoggerStream(stream);
 }
 }
 #endif

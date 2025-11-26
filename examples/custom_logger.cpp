@@ -1,15 +1,15 @@
 /// @ingroup Logger
-/// @example custom_stream.cpp
-/// @brief Example of creating a custom logger stream
+/// @example custom_logger.cpp
+/// @brief Example of creating a custom logger object
 /// @details
 /// This example demonstrates how to create a custom logger
-/// stream and use it for logging.
+/// object and use it for logging.
 ///
 /// Steps:
 /// 1. Define a stream class where:
 ///   * `void flush()` sends the buffered message to the sink.
 ///   * `void append()` adds a message to the buffer.
-/// 2. Define a `log()` function that serves as a factory for creating logger streams.
+/// 2. Define a `log()` function that serves as a logger factory.
 /// 3. Use the custom `log()` function to log messages.
 ///
 /// Expected output:
@@ -25,10 +25,9 @@
 
 namespace logger = mayak::logger::core;
 
-/// @brief A custom logger stream
-struct CustomLoggerStream : logger::ILoggerStream {
-    // Level setter is needed because the stream object is created only once
-    // for the entire logger.
+/// @brief A custom logger object
+struct CustomLogger : logger::ILogger {
+    // Use setters to modify any data.
     void setLevel(logger::Level level) { _lvl = level.label; }
 
     // Flushes the buffered message to all registered sinks when destroyed.
@@ -51,16 +50,16 @@ private:
     std::string _lvl;
 };
 
-logger::LoggerProxy log(logger::Level lvl) {
+logger::LoggerStream log(logger::Level lvl) {
     // `thread_local` ensures the object has static storage duration within each thread.
-    thread_local CustomLoggerStream stream; 
+    thread_local CustomLogger stream; 
 
     // Set level to stream.
     stream.setLevel(lvl);
 
-    // Return stream wrapped in proxy.
-    // `LoggerProxy` is a wrapper around a concrete ILoggerStream implementation.
-    return logger::LoggerProxy(stream);
+    // LoggerStream is a stream wrapper separates the logger, defines a user-friendly API,
+    // and allows to return different loggers (for example, no-op) in the same factory
+    return logger::LoggerStream(stream);
 }
 
 struct ConsoleSink : logger::Sink {

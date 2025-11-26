@@ -1,6 +1,6 @@
 #include <catch2/catch_test_macros.hpp>
 #include <vector>
-#include "mayak/logger/core/sinks.hpp"
+#include "mayak/logger/core/isink.hpp"
 
 struct TestSink : mayak::logger::core::Sink {
     std::vector<std::string> messages;
