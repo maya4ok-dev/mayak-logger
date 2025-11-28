@@ -1,0 +1,33 @@
+name: Tests
+
+on:
+  push:
+    branches: [ development, main ]
+  pull_request:
+    branches: [ development, main ]
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/setup-cmake@v3
+        with:
+          cmake-version: "3.27"
+      - uses: llvm/clang@v1
+        with:
+          version: "17"
+      - uses: antoninbas/setup-ninja@v2
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build tests
+        run: |
+          cmake -B build -G Ninja -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_BUILD_TYPE=Release
+          ninja -C build
+
+      - name: Run tests
+        run: |
+          cd build/tests
+          ctest
