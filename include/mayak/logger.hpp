@@ -30,7 +30,7 @@ inline logger::core::LoggerStream log(logger::core::Level lvl) {
     if (lvl.priority < logger::core::minLevelPriority() || !logger::core::enabled())
         return logger::core::LoggerStream{noop};
     
-    return logger::core::LoggerStream(stream);
+    return logger::core::LoggerStream{stream};
 }
 }
 #endif
