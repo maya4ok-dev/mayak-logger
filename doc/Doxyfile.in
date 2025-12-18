@@ -1,7 +1,7 @@
 PROJECT_NAME           = @PROJECT_NAME@
 PROJECT_NUMBER         = @PROJECT_VERSION@
-OUTPUT_DIRECTORY       = @CMAKE_BINARY_DIR@/docs
-INPUT                  = @CMAKE_SOURCE_DIR@/include @CMAKE_SOURCE_DIR@/src @CMAKE_SOURCE_DIR@/doc/groups.dox
+OUTPUT_DIRECTORY       = @CMAKE_CURRENT_BINARY_DIR@/docs
+INPUT                  = @CMAKE_CURRENT_SOURCE_DIR@/include @CMAKE_CURRENT_SOURCE_DIR@/doc/groups.dox
 FILE_PATTERNS          = *.h *.hpp *.c *.cpp *.dox
 RECURSIVE              = YES
 
