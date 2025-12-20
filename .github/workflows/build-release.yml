@@ -33,4 +33,4 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: mayak-logger-${{ github.ref_name }}
-          path: release/mayak-logger-${{ github.ref_name }}.tar.gz
+          path: mayak-logger-${{ github.ref_name }}.tar.gz
