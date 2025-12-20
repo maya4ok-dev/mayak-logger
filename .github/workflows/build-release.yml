@@ -31,7 +31,7 @@ jobs:
           cd release
           tar -czvf mayak-logger-${{ github.ref_name }}.tar.gz *
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: mayak-logger-${{ github.ref_name }}
           path: release/mayak-logger-${{ github.ref_name }}.tar.gz -C . .
