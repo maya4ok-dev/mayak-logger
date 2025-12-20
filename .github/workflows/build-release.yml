@@ -28,8 +28,7 @@ jobs:
           cp -r build/docs/html/. release/doc
           cp -r examples/* release/examples
           cp -r include/* release/include
-          cd release
-          tar -czvf mayak-logger-${{ github.ref_name }}.tar.gz -C . .
+          tar -czvf mayak-logger-${{ github.ref_name }}.tar.gz -C release .
 
       - uses: actions/upload-artifact@v4
         with:
