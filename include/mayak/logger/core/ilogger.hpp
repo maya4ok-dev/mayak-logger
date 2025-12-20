@@ -26,7 +26,7 @@ struct ILogger {
     /// @brief A template method to append values.
     /// @tparam T Type value to append.
     /// @param val Value to append.
-    /// @todo use SFINAE.
+    /// @todo use CPO + ADL to format to string.
     template<typename T>
     void append(const T& val) {
         if constexpr(std::is_arithmetic_v<T>) {
