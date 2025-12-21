@@ -34,3 +34,8 @@ jobs:
         with:
           name: mayak-logger-${{ github.ref_name }}
           path: mayak-logger-${{ github.ref_name }}.tar.gz
+
+      - uses: ncipollo/release-action@v1
+        with:
+          artifacts: mayak-logger-${{ github.ref_name }}.tar.gz
+          bodyFile: "CHANGELOG.md"
