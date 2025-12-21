@@ -39,3 +39,4 @@ jobs:
         with:
           artifacts: mayak-logger-${{ github.ref_name }}.tar.gz
           bodyFile: "CHANGELOG.md"
+          token: ${{ secrets.RELEASE_TOKEN }}
