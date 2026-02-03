@@ -7,6 +7,11 @@
 #include <sstream>
 #include <string>
 #include <type_traits>
+#include <memory>
+#include <vector>
+
+#include "isink.hpp"
+#include "level.hpp"
 
 namespace mayak::logger::core {
 
@@ -26,7 +31,6 @@ struct ILogger {
     /// @brief A template method to append values.
     /// @tparam T Type value to append.
     /// @param val Value to append.
-    /// @todo use CPO + ADL to format to string.
     template<typename T>
     void append(const T& val) {
         if constexpr(std::is_arithmetic_v<T>) {
@@ -41,3 +45,54 @@ struct ILogger {
 
 }
 
+namespace mayak::logger::core {
+
+struct Flush {};
+inline Flush flush;
+
+class Logger {
+    std::vector<std::unique_ptr<Sink>> sinks;
+    std::stringstream buffer;
+    Level level;
+
+    void flush() {
+        auto msg = buffer.str();
+        if (msg.empty() || sinks.empty()) return;
+        for (auto& sink : sinks) {
+            sink->log("[" + level.label + "] " + msg);
+            sink->flush();
+        }
+        buffer.str("");
+        buffer.clear();
+    }
+public:
+
+    Logger() : level("INFO", 40) {}
+
+    template<typename T>
+    Logger& operator<<(const T& val) {
+        buffer << val;
+        return *this;
+    }
+
+    template<typename SinkType, typename... Args>
+    Logger& addSink(Args&&... args) {
+        sinks.push_back(std::make_unique<SinkType>(std::forward<Args>(args)...));
+        return *this;
+    }
+
+    Logger& setLevel(Level lvl) {
+        flush();
+        return *this;
+    }
+
+    Logger& operator<<(Flush) {
+        flush();
+        return *this;
+    }
+
+    ~Logger() { flush(); }
+
+};
+
+}
