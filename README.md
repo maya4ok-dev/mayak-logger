@@ -19,46 +19,29 @@ Mayak Logger is designed to solve all of these problems and make logging simpler
 
 ## Example
 
-For now, default sinks aren't implemented. They'll append in future versions.
-
 ```cpp
 // 1. Include the main header.
 #include <mayak/logger.hpp>
-#include <iostream>
-#include <string>
 
 // 2. Make aliases for types to simplify the code so you don't have to type long namespaces.
 using Level = mayak::logger::core::Level;
-using Sink = mayak::logger::core::Sink;
-using flush = mayak::logger::core::flush;
-
-// 3. Define a sink, it'll send messages to the output.
-struct ConsoleSink : Sink {
-    // This method sends the message into the IO buffer.
-    void log(const std::string& msg) override {
-        std::cout << msg;
-    }
-    // This method forces IO to show the buffered message.
-    void flush() override {
-        std::cout << std::endl;
-    }
-};
+using mayak::logger::core::flush;
 
 int main() {
-    // 4. Create a logger
+    // 3. Create a logger
     mayak::logger::core::Logger ml;
 
-    // 5. Add a sink
-    ml.addSink<ConsoleSink>();
+    // 4. Add a sink
+    ml.addSink<mayak::logger::ConsoleSink>();
 
     // Set a log level if needed
-    // Default level is INFO with priotiry 40
+    // Default level is INFO with priority 40
     // Level debug("DEBUG", 10);
     // ml.setLevel(debug);
 
-    // 6. Done! Now log messages using DSL
+    // 5. Done! Now log messages using DSL
     ml << "Hello, Project Mayak!" << flush;
-    ml << "Another message" << flush;
+    ml << "Number: " << (123 + 456) << flush;
 
     return 0;
 }

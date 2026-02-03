@@ -10,6 +10,7 @@
 #include "logger/core/ilogger.hpp"
 #include "logger/core/stream.hpp"
 #include "logger/stream.hpp"
+#include "logger/sinks.hpp"
 
 #ifndef MAYAK_LOGGER_CORE_ONLY
 namespace mayak {
