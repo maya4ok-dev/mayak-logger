@@ -30,6 +30,7 @@ For now, default sinks aren't implemented. They'll append in future versions.
 // 2. Make aliases for types to simplify the code so you don't have to type long namespaces.
 using Level = mayak::logger::core::Level;
 using Sink = mayak::logger::core::Sink;
+using flush = mayak::logger::core::flush;
 
 // 3. Define a sink, it'll send messages to the output.
 struct ConsoleSink : Sink {
@@ -44,12 +45,20 @@ struct ConsoleSink : Sink {
 };
 
 int main() {
-    // Create a log level.
-    Level info("INFO", 40);
-    // Register the sink globally so log messages are sent to it.
-    Sink::createSink<ConsoleSink>();
-    // Log the message. 
-    mayak::log(info) << "Hello, Project Mayak!";
+    // 4. Create a logger
+    mayak::logger::core::Logger ml;
+
+    // 5. Add a sink
+    ml.addSink<ConsoleSink>();
+
+    // Set a log level if needed
+    // Default level is INFO with priotiry 40
+    // Level debug("DEBUG", 10);
+    // ml.setLevel(debug);
+
+    // 6. Done! Now log messages using DSL
+    ml << "Hello, Project Mayak!" << flush;
+    ml << "Another message" << flush;
 
     return 0;
 }
