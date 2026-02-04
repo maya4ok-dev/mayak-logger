@@ -82,7 +82,7 @@ public:
     }
 
     Logger& setLevel(Level lvl) {
-        flush();
+        level = lvl;
         return *this;
     }
 
