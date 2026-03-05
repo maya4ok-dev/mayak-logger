@@ -6,44 +6,11 @@
 
 #include <sstream>
 #include <string>
-#include <type_traits>
 #include <memory>
 #include <vector>
 
 #include "isink.hpp"
 #include "level.hpp"
-
-namespace mayak::logger::core {
-
-/// @struct ILogger
-/// @brief A logger interface.
-struct ILogger {
-    /// @brief A logger stream destructor.
-    virtual ~ILogger() = default;
-
-    /// @brief Flushes the messages from the buffer.
-    virtual void flush() = 0;
-
-    /// @brief Appends the message to the buffer.
-    /// @param msg The message to append.
-    virtual void append(const std::string& msg) = 0;
-    
-    /// @brief A template method to append values.
-    /// @tparam T Type value to append.
-    /// @param val Value to append.
-    template<typename T>
-    void append(const T& val) {
-        if constexpr(std::is_arithmetic_v<T>) {
-            append(std::to_string(val));
-        } else {
-            std::ostringstream tmp;
-            tmp << val;
-            append(tmp.str());
-        }
-    }
-};
-
-}
 
 namespace mayak::logger::core {
 
