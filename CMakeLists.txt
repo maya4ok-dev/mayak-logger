@@ -12,5 +12,5 @@ target_include_directories(mayak_logger_core INTERFACE include)
 
 # --- Subdirectories ---
 add_subdirectory(examples)
-add_subdirectory(tests)
+include(cmake/gen_tests.cmake)
 include(cmake/gen_docs.cmake)

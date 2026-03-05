@@ -1,4 +1,4 @@
-#include <catch2/catch_test_macros.hpp>
+#include <doctest/doctest.h>
 #include <vector>
 #include "mayak/logger/core/isink.hpp"
 
@@ -14,17 +14,17 @@ struct TestSink : mayak::logger::core::Sink {
     }
 };
 
-TEST_CASE("Sink logs and flushes messages", "[core][sink]") {
-    auto sink = mayak::logger::core::Sink::createSink<TestSink>();
+TEST_CASE("Sink logs and flushes messages") {
+    TestSink sink;
 
-    mayak::logger::core::Sink::logAll("Hello, World!");
-    mayak::logger::core::Sink::logAll("1234567890");
+    sink.log("Hello, World!");
+    sink.log("1234567890");
 
-    REQUIRE(sink->messages.size() == 2);
-    REQUIRE(sink->messages[0] == "Hello, World!");
-    REQUIRE(sink->messages[1] == "1234567890");
+    CHECK(sink.messages.size() == 2);
+    CHECK(sink.messages[0] == "Hello, World!");
+    CHECK(sink.messages[1] == "1234567890");
 
-    mayak::logger::core::Sink::flushAll();
+    sink.flush();
 
-    REQUIRE(sink->messages.empty());
+    CHECK(sink.messages.empty());
 }
