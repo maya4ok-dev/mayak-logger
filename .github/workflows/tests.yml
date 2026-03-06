@@ -14,7 +14,7 @@ jobs:
       - name: Install dependencies 
         run : |
           sudo apt-get update
-          sudo apt-get install -y clang ninja-build cmake doxygen
+          sudo apt-get install -y clang ninja-build cmake doctest-dev
 
       - name: Checkout
         uses: actions/checkout@v4
@@ -25,6 +25,4 @@ jobs:
           cmake --build build
 
       - name: Run tests
-        run: |
-          cd build/tests
-          ctest
+        run: build/tests
