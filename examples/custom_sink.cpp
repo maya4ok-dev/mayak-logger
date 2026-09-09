@@ -18,6 +18,7 @@
 
 #include <mayak/logger.hpp>
 #include <fstream>
+#include <ostream>
 
 using namespace mayak::logger::core;
 
@@ -44,12 +45,16 @@ struct FileSink : Sink {
 };
 
 int main() {
-    // Standard logger routine.
+    // Create an info level
     Level info("INFO", 40);
-    Sink::createSink<FileSink>("mylog.txt");
+
+    // Create a logger object
+    Logger ml;
+
+    // Register our sink
+    ml.addSink<FileSink>("mylog.txt");
 
     // Message will appear in `mylog.txt`, (not in stdout).
-    mayak::log(info) << "Hello, Project Mayak!";
-
+    ml << "Hello, Project Mayak!" << flush;
     return 0;
 }
