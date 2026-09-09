@@ -16,8 +16,4 @@ if(Doxygen_FOUND)
         ALL
     )
 
-else()
-
-    message(STATUS "Doxygen not found - docs will be unavailable")
-
 endif()

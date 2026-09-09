@@ -11,6 +11,21 @@ add_library(mayak_logger_core INTERFACE)
 target_include_directories(mayak_logger_core INTERFACE include)
 
 # --- Subdirectories ---
-add_subdirectory(examples)
-include(cmake/gen_tests.cmake)
-include(cmake/gen_docs.cmake)
+
+option(MAYAK_LOGGER_BUILD_EXAMPLES "Build usage examples" OFF)
+
+if(MAYAK_LOGGER_BUILD_EXAMPLES)
+    add_subdirectory(examples)
+endif()
+
+option(MAYAK_LOGGER_BUILD_TESTS "Build tests" OFF)
+
+if(MAYAK_LOGGER_BUILD_TESTS)
+    include(cmake/gen_tests.cmake)
+endif()
+
+option(MAYAK_LOGGER_GENERATE_DOCS "Generate Doxygen documentation" OFF)
+
+if(MAYAK_LOGGER_GENERATE_DOCS)
+    include(cmake/gen_docs.cmake)
+endif()
