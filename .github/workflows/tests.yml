@@ -21,7 +21,8 @@ jobs:
 
       - name: Build tests
         run: |
-          cmake -B build -G Ninja -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_BUILD_TYPE=Release
+          cmake -B build -G Ninja -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_BUILD_TYPE=Release \
+            -DMAYAK_LOGGER_BUILD_EXAMPLES=ON -DMAYAK_LOGGER_BUILD_TESTS=ON -DMAYAK_LOGGER_GENERATE_DOCS=ON
           cmake --build build
 
       - name: Run tests
