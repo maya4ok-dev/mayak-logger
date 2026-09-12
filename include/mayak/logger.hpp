@@ -1,5 +1,5 @@
 /// @file logger.hpp
-/// @brief High-performance, header-only, and extremely flexible C++ logging library
+/// @brief An extremely flexible logging framework.
 /// @author Maya4ok (https://github.com/maya4ok-dev)
 
 #pragma once
