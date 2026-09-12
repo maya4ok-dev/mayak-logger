@@ -10,7 +10,6 @@ struct Sink : mayak::logger::core::Sink {
     void log(const std::string& msg) override {
         buffer.push_back(msg);
     }
-    void flush() override { }
 };
 
 TEST_CASE("(core) testing the logger itself") {
