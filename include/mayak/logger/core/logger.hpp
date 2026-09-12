@@ -27,7 +27,6 @@ class Logger {
         if (msg.empty() || sinks.empty()) return;
         for (auto& sink : sinks) {
             sink->log("[" + level.label + "] " + msg);
-            sink->flush();
         }
         buffer.str("");
         buffer.clear();
