@@ -6,10 +6,18 @@
 /// and use it for logging.
 ///
 /// Steps:
-/// 1. Define a sink class where:
-///   * `void log(const std::string& msg)` - writes a message to the buffer.
-///   * `void flush()` - sends the buffered message to the output.
-/// 2. Register a sink with `Sink::createSink<T>(Args &&args...)`
+///
+/// - 1. Implement a sink class:
+/// @code{.cpp}
+/// void log(const std::string& msg) override {
+///     ofs << msg << std::endl;
+/// }
+/// @endcode
+///
+/// - 2. Add it:
+/// @code{.cpp}
+/// logger.addSink<FileSink>("mylog.txt");
+/// @endcode
 /// 
 /// Expected output (file):
 /// @code
@@ -18,11 +26,10 @@
 
 #include <mayak/logger.hpp>
 #include <fstream>
-#include <ostream>
 
-using namespace mayak::logger::core;
+using mayak::logger::core::flush;
 
-struct FileSink : Sink {
+struct FileSink : mayak::logger::core::Sink {
     std::ofstream ofs;
 
     // Opens the file with the given filename in append mode.
@@ -34,22 +41,13 @@ struct FileSink : Sink {
 
     // Writes a message directly to the file.
     void log(const std::string& msg) override {
-        ofs << msg;
-    }
-
-    // Flushes the file stream to ensure the message is written.
-    void flush() override {
-        ofs << std::endl;
-        ofs.flush();
+        ofs << msg << std::endl;
     }
 };
 
 int main() {
-    // Create an info level
-    Level info("INFO", 40);
-
     // Create a logger object
-    Logger ml;
+    mayak::logger::core::Logger ml;
 
     // Register our sink
     ml.addSink<FileSink>("mylog.txt");
